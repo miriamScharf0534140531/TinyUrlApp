@@ -17,7 +17,6 @@ const ClicksBySourceChart = () => {
       if (linkId) {
         try {
           const data = await getLinkById(linkId);
-          console.log("dataLinkInfo",data);
           setLinkDetails(data);
         } catch (error) {
           console.error('Error while fetching user details:', error);

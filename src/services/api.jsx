@@ -69,6 +69,7 @@ export const getUserDetails = async (userId) => {
 export const getLinkById = async (linkId) => {
   try {
     const token = localStorage.getItem('token');
+    console.log("htthththt",linkId);
     const response = await fetch(`${API_URL}/links/${linkId}/clicksInfo`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -83,6 +84,24 @@ export const getLinkById = async (linkId) => {
   } catch (error) {
     console.error('Error while fetching user data:', error);
   }
+}
+export const getLinksForUser = async (userId) => {
+    try{
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/users/${userId}/links`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log("resp:",response);
+    if (!response.ok) {
+      throw new Error('Failed to fetch user data');
+    }
+    const data = await response.json();
+    return data;
+    }catch(e){
+      console.error('Error while fetching user data:', e);
+    }
 }
 
 
