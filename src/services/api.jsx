@@ -1,5 +1,6 @@
 
-const API_URL = 'http://localhost:3000'; 
+const API_URL = 'https://tinyurl-n41k.onrender.com/'; 
+// const API_URL = 'http://localhost:3000'; 
 
 export const login = async (email, password) => {
   try {
