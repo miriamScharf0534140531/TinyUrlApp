@@ -22,7 +22,7 @@ export const login = async (email, password) => {
     localStorage.setItem('token', token);
     return data;
   } catch (error) {
-    console.error('Error while logging in:', error);
+    console.error('Error while logging innnn:', error);
     throw error;
   }
 };
