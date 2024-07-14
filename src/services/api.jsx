@@ -11,11 +11,12 @@ export const login = async (email, password) => {
       },
       body: JSON.stringify({ email, password }),
     });
+    console.log("response::", response);
     if (!response.ok) {
       if (response.status === 401) {
         throw new Error('No such user exists');
       }
-      throw new Error('Login failed!!!!!!!!!!!!!!!!!!!!!');
+      throw new Error('Login failed');
     }
     const data = await response.json();
     const { token } = data;
@@ -38,6 +39,7 @@ export const register = async (name ,email, password) => {
       },
       body: JSON.stringify({ name,email, password }),
     });
+    console.log("response::", response);
     if (!response.ok) {
       throw new Error('Register failed');
     }
@@ -47,6 +49,7 @@ export const register = async (name ,email, password) => {
     return data;
   } catch (error) {
     console.error('Error while Register:', error);
+    throw error;
   }
 };
 
