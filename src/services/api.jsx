@@ -15,7 +15,7 @@ export const login = async (email, password) => {
       if (response.status === 401) {
         throw new Error('No such user exists');
       }
-      throw new Error('Login failed');
+      throw new Error('Login failed!!!!!!!!!!!!!!!!!!!!!');
     }
     const data = await response.json();
     const { token } = data;
