@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getLinkById } from "../../services/api";
-import { useLocation } from 'react-router-dom';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
+import { getLinkById } from "../../services/api";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -11,7 +13,7 @@ const ClicksBySourceChart = () => {
   const location = useLocation();
   const { linkId } = location.state || {};
   const [linkDetails, setLinkDetails] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchLinkInfoDetails = async () => {
       if (linkId) {
@@ -25,6 +27,10 @@ const ClicksBySourceChart = () => {
     };
     fetchLinkInfoDetails();
   }, [linkId]);
+  const handleDashboard = ()=>{
+    navigate(-1);
+  }
+
   const labels = Object.keys(linkDetails);
   const data = Object.values(linkDetails);
   const chartData = {
@@ -33,7 +39,7 @@ const ClicksBySourceChart = () => {
       {
         label: 'Clicks',
         data: data,
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        backgroundColor: '#8db3a6',
       },
     ],
     scales: {
@@ -47,10 +53,16 @@ const ClicksBySourceChart = () => {
 
 
   if (!linkDetails) {
-    return <div>Loading...</div>; // הצגת הודעה כשהנתונים נטענים
+    return <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <div className="spinner-border" role="status">
+      </div>
+    </div>
   }
   return (
-<Bar data={chartData} options={chartData.scales}/>
+    <>
+    <button className="button" type="button" onClick={() => handleDashboard()}>Back  <FontAwesomeIcon icon={faArrowLeft} /></button>
+    <Bar data={chartData} options={chartData.scales} />
+    </>
   );
 };
 
