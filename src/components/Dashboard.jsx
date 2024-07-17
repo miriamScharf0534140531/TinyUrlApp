@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-// import ClicksBySourceGraph from './graphs/ClicksBySourceGraph';
-// import TotalClicksGraph from './graphs/TotalClicksGraph';
-// import ClicksByDayGraph from './graphs/ClicksByDayGraph';
-import { getLinksForUser, getUserDetails } from '../services/api';
+import {useLocation } from 'react-router-dom';
+import LinksComponent from './LinksComponent.jsx';
+import { getUserDetails } from '../services/api';
 
 const Dashboard = () => {
   const location = useLocation();
   const { userId } = location.state || {};
-  const navigate = useNavigate();
+  const [showLinks, setShowLinks] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
-  const [linksForUser,setLinksForUser] = useState(null);
+  const [linksForUser, setLinksForUser] = useState(null);
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (userId) {
@@ -23,47 +21,35 @@ const Dashboard = () => {
         }
       }
     };
-    const fetchLinksForUser = async () => {
-      if (userId){
-        try{
-          const data = await getLinksForUser(userId);
-          console.log("links for user", data);
-          // console.log("kkkkkkkk",data[0].originalUrl);
-          setLinksForUser(data);
-        }catch(e){
-          console.error('Error while fetching links for user:', e);
-        }
-      }
-    }
+
     fetchUserDetails();
-    fetchLinksForUser();
   }, [userId]);
-  // useEffect(()=>{
 
-  // },[])
-  const handleLinkClick = (linkId) => {
-    navigate('/link/clicks', { state: { linkId } });
-  }
-
+  const handleLinks = () => {
+    setShowLinks(true);
+  };
   return (
     <div>
-      <h1>Dashboard</h1>
       {userDetails ? (
-        <div>
-          <h2>Welcome, {userDetails.name}</h2>
-          <h3>Your Links</h3>
-          <ul>
-            {linksForUser?.map((link, index) => (
-              <li key={index}>
-                {index + 1}.    
-                {link["originalUrl"]}
-                <button type="button" onClick={() => handleLinkClick(link.id)}>datails</button>
-              </li>
-            ))}
-          </ul>
+        <div className="card text-center">
+          <div className="card-header">
+            Dashboard
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">Welcome, {userDetails?.name}</h5>
+            <p className="card-text">Create shorter URLs with TinyURL.</p>
+            {!showLinks && <button className="btn btn-primary" type="button" onClick={() => handleLinks()}>Your Links</button>}
+            {showLinks && <LinksComponent />}
+          </div>
+          <div className="card-footer text-body-secondary">
+            learn more
+          </div>
         </div>
       ) : (
-        <div>Loading user details...</div>
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+          <div className="spinner-border" role="status">
+          </div>
+        </div>
       )}
     </div>
   );
