@@ -8,8 +8,9 @@ const LoginComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
     try {
+      event.preventDefault();
       setErrorMessage('');
       const data = await login(email, password);
       console.log("dataa", data);
@@ -28,7 +29,7 @@ const LoginComponent = () => {
     <>
         <div className="login-container">
       <h2>Login</h2>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleLogin}>
         <input
           type="email"
           placeholder="Email"
@@ -43,7 +44,7 @@ const LoginComponent = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="login-input"
         />
-        <button type="button" onClick={handleLogin} className="login-button">Login</button>
+        <button type="submit"  className="login-button">Login</button>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <div className="register-link">

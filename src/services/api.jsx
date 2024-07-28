@@ -108,4 +108,27 @@ export const getLinksForUser = async (userId) => {
     }
 }
 
+export const addLinkForUser = async (originalUrl,targetParamName,targetValues,userId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_URL}/links/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ originalUrl,targetParamName,targetValues, userId }),
+    });
+    console.log("response::", response);
+    if (!response.ok) {
+      throw new Error('Failed to add link');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error while adding link:', error);
+    throw error;
+  }
+}
+
 
