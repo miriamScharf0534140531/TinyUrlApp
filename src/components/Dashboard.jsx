@@ -65,7 +65,7 @@ const Dashboard = () => {
                 {shortUrl && (//זה אני צריכה לבדוק אם זה עובד
                   <div className="short-url-result">
                     <p className='card-text'>This is your shortened URL: <br/>
-                    <a href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</a></p>
+                    <p href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</p></p>
                   </div>
                 )}
               </div>
