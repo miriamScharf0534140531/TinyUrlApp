@@ -10,3 +10,25 @@
   .button:hover {
     background-color: #4f665e;
   }
+
+  .card_Short_URL {
+    width: 500px;
+    margin: auto;
+    background-color: #364540;
+  }
+  .input_long_link {
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    width: 100%;
+  }
+  .button_shorting_URL {
+    width: 100%;
+  }
+
+  .title {
+    color: white;
+  }
+  .short-url-result {
+    color: white;
+  }

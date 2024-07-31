@@ -108,7 +108,7 @@ export const getLinksForUser = async (userId) => {
     }
 }
 
-export const addLinkForUser = async (originalUrl,targetParamName,targetValues,userId) => {
+export const addLinkForUser = async (originalUrl,userId) => {
   try {
     const token = localStorage.getItem('token');
     const response = await fetch(`${API_URL}/links/${userId}`, {
@@ -117,7 +117,7 @@ export const addLinkForUser = async (originalUrl,targetParamName,targetValues,us
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({ originalUrl,targetParamName,targetValues, userId }),
+      body: JSON.stringify({ originalUrl, userId }),
     });
     console.log("response::", response);
     if (!response.ok) {
