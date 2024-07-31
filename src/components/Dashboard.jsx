@@ -34,7 +34,7 @@ const Dashboard = () => {
     //צריך להוסיף לשליחה גם אפשרות של targets
     const data = await addLinkForUser(originalUrl,userId)
     console.log("dataaaaaaaakululululu",data);
-    setShortUrl(`https://tinyurlapp.onrender.com/${data.id}`)
+    setShortUrl(`tinyurl-n41k.onrender.com/${data.id}`)
   }
   return (
     <div>
